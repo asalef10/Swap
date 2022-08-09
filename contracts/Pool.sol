@@ -52,12 +52,15 @@ contract Pool {
     function getInputPriceWithFee(address outputToken, uint256 amount)
         public
         view
-        returns (address inputToken, uint256 price)
+        returns (address inputToken, uint256 inputAmount)
     {
-        (inputToken, price) = getInputPriceWithoutFee(outputToken, amount);
+        (inputToken, inputAmount) = getInputPriceWithoutFee(
+            outputToken,
+            amount
+        );
 
         //add 0.003%
-        price = (price * fees) / 1000;
+        inputAmount = (inputAmount * fees) / 1000;
     }
 
     function swap(address outputToken, uint256 amount) public {
