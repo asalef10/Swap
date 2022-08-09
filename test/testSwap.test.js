@@ -97,11 +97,12 @@ contract("Pool", (accounts) => {
   });
 
   it("Should give price token", async () => {
-    let price = await PoolInstance.getPriceToken(
+    let price = await PoolInstance.getInputPriceWithFee(
       tokenB.address,
       web3.utils.toWei("5", "ether")
     );
-    //  console.log(price + "price token");
+
+    console.log(price + "price token");
   });
 
   it("Should give token A", async () => {
