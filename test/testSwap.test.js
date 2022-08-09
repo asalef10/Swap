@@ -38,6 +38,7 @@ contract("Pool", (accounts) => {
       tokenB.address
     );
 
+    console.log("ab " + abAddress);
     PoolInstance = await Pool.at(abAddress);
 
     await tokenA.approve(PoolInstance.address, issueAmount);
@@ -102,7 +103,9 @@ contract("Pool", (accounts) => {
       web3.utils.toWei("5", "ether")
     );
 
-    console.log(price + "price token");
+    console.log(
+      web3.utils.fromWei(price.inputAmount, "ether") + " price token"
+    );
   });
 
   it("Should give token A", async () => {
