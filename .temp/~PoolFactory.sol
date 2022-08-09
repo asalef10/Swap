@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "./Pool.sol";
+import "./~Pool.sol";
 
 contract PoolFactory {
     mapping(address => mapping(address => address)) public pools;

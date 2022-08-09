@@ -74,16 +74,51 @@ contract("Pool", (accounts) => {
     let tokenBBefore = await tokenB.balanceOf(accounts[0]);
     let tokenABefore = await tokenA.balanceOf(accounts[0]);
 
-    PoolInstance.swap(tokenB.address, web3.utils.toWei("5", "ether"));
+    let balanceBefore = await PoolInstance.balanceContract();
+    console.log(balanceBefore + "  balanceBefore");
+
+    await PoolInstance.swap(tokenB.address, web3.utils.toWei("5", "ether"));
+    let balanceAfter = await PoolInstance.balanceContract();
+    console.log(balanceAfter + "  balanceAfter");
 
     let tokenBAfter = await tokenB.balanceOf(accounts[0]);
     let tokenAAfter = await tokenA.balanceOf(accounts[0]);
 
+    // console.log("tokenABefore " + tokenABefore);
+    // console.log("tokenAAfter " + tokenAAfter);
 
-    console.log("tokenABefore " + tokenABefore);
-    console.log("tokenAAfter " + tokenAAfter);
+    // console.log("tokenBBefore " + tokenBBefore);
+    // console.log("tokenBAfter " + tokenBAfter);
+  });
 
-    console.log("tokenBBefore " + tokenBBefore);
-    console.log("tokenBAfter " + tokenBAfter);
+  it("Should give fees ", async () => {
+    let fees = await PoolInstance.getFees();
+    // console.log(fees + " fees");
+  });
+
+  it("Should give price token", async () => {
+    let price = await PoolInstance.getPriceToken(
+      tokenB.address,
+      web3.utils.toWei("5", "ether")
+    );
+    //  console.log(price + "price token");
+  });
+
+  it("Should give token A", async () => {
+    let tokenA = await PoolInstance.getTokenA();
+    //  console.log(tokenA + " token a");
+  });
+
+  it("Should give token B", async () => {
+    let tokenB = await PoolInstance.getTokenB();
+    // console.log(tokenB + " token b");
+  });
+  it("Should give owner and balance  ", async () => {
+    let balance = await PoolInstance.getOwnerAndBalance();
+    // console.log(JSON.stringify(balance) + "  balanceOwner");
+  });
+  it("Should gibe fees price", async () => {
+    let fees = await PoolInstance.getFees();
+    console.log(fees + " fees price");
   });
 });
