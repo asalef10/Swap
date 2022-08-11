@@ -77,9 +77,14 @@ contract("Pool", (accounts) => {
     let balanceBefore = await PoolInstance.balanceContract();
     console.log(balanceBefore + "  balanceBefore");
 
+    let balance = await PoolInstance.getOwnerAndBalance();
+    console.log(JSON.stringify(balance) + "  balanceOwner Before");
+    
     await PoolInstance.swap(tokenB.address, web3.utils.toWei("5", "ether"));
     let balanceAfter = await PoolInstance.balanceContract();
     console.log(balanceAfter + "  balanceAfter");
+    console.log(JSON.stringify(balance) + "  balanceOwner After");
+
 
     let tokenBAfter = await tokenB.balanceOf(accounts[0]);
     let tokenAAfter = await tokenA.balanceOf(accounts[0]);
@@ -91,18 +96,12 @@ contract("Pool", (accounts) => {
     // console.log("tokenBAfter " + tokenBAfter);
   });
 
-  it("Should give fees ", async () => {
-    let fees = await PoolInstance.getFees();
-    // console.log(fees + " fees");
-  });
-
-  it("Should give price token", async () => {
+  it("Should get Input Price With Fee", async () => {
     let price = await PoolInstance.getInputPriceWithFee(
       tokenB.address,
-      web3.utils.toWei("5", "ether")
+      web3.utils.toWei("1", "ether")
     );
-
-    console.log(price + "price token");
+    console.log(JSON.stringify(web3.utils.fromWei(price.inputAmount)) + "price token");
   });
 
   it("Should give token A", async () => {
@@ -115,11 +114,8 @@ contract("Pool", (accounts) => {
     // console.log(tokenB + " token b");
   });
   it("Should give owner and balance  ", async () => {
-    let balance = await PoolInstance.getOwnerAndBalance();
+    // let balance = await PoolInstance.getOwnerAndBalance();
     // console.log(JSON.stringify(balance) + "  balanceOwner");
   });
-  it("Should gibe fees price", async () => {
-    let fees = await PoolInstance.getFees();
-    console.log(fees + " fees price");
-  });
+  
 });
