@@ -77,14 +77,10 @@ contract("Pool", (accounts) => {
     let balanceBefore = await PoolInstance.balanceContract();
     console.log(balanceBefore + "  balanceBefore");
 
-    let balance = await PoolInstance.getOwnerAndBalance();
-    console.log(JSON.stringify(balance) + "  balanceOwner Before");
-    
     await PoolInstance.swap(tokenB.address, web3.utils.toWei("5", "ether"));
     let balanceAfter = await PoolInstance.balanceContract();
     console.log(balanceAfter + "  balanceAfter");
-    console.log(JSON.stringify(balance) + "  balanceOwner After");
-
+    
 
     let tokenBAfter = await tokenB.balanceOf(accounts[0]);
     let tokenAAfter = await tokenA.balanceOf(accounts[0]);
@@ -96,7 +92,7 @@ contract("Pool", (accounts) => {
     // console.log("tokenBAfter " + tokenBAfter);
   });
 
-  it("Should get Input Price With Fee", async () => {
+  it("Should  get Input Price With Fee", async () => {
     let price = await PoolInstance.getInputPriceWithFee(
       tokenB.address,
       web3.utils.toWei("1", "ether")
