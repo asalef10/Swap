@@ -7,7 +7,6 @@ contract("Pool", (accounts) => {
   function fromWeiToNumber(number) {
     return parseFloat(web3.utils.fromWei(number, "ether")).toFixed(6) * 1;
   }
-
   const A_PRICE = 1;
   const B_PRICE = 3;
   const C_PRICE = 6;
@@ -17,6 +16,8 @@ contract("Pool", (accounts) => {
   const issueAmount = web3.utils.toWei("100000000000000", "ether");
 
   let PoolInstance, PoolFactoryInstance;
+
+  let contractAddress;
 
   before(async () => {
     tokenA = await ERC20.new("tokenA", "A", issueAmount, accounts[0]);
@@ -39,7 +40,7 @@ contract("Pool", (accounts) => {
     );
 
     PoolInstance = await Pool.at(abAddress);
-
+    contractAddress = abAddress;
     await tokenA.approve(PoolInstance.address, issueAmount);
     await tokenB.approve(PoolInstance.address, issueAmount);
     await tokenC.approve(PoolInstance.address, issueAmount);
@@ -70,26 +71,12 @@ contract("Pool", (accounts) => {
     await tokenB.transfer(abAddress, web3.utils.toWei("1000", "ether"));
   });
 
-  it("Should swap token A to token B", async () => {
-    let tokenBBefore = await tokenB.balanceOf(accounts[0]);
-    let tokenABefore = await tokenA.balanceOf(accounts[0]);
-
-    let balanceBefore = await PoolInstance.balanceContract();
-    console.log(balanceBefore + "  balanceBefore");
-
-    await PoolInstance.swap(tokenB.address, web3.utils.toWei("5", "ether"));
-    let balanceAfter = await PoolInstance.balanceContract();
-    console.log(balanceAfter + "  balanceAfter");
-    
-
-    let tokenBAfter = await tokenB.balanceOf(accounts[0]);
-    let tokenAAfter = await tokenA.balanceOf(accounts[0]);
-
-    // console.log("tokenABefore " + tokenABefore);
-    // console.log("tokenAAfter " + tokenAAfter);
-
-    // console.log("tokenBBefore " + tokenBBefore);
-    // console.log("tokenBAfter " + tokenBAfter);
+  it("Should swap token B to token A", async () => {
+    await PoolInstance.swap(
+      tokenB.address,
+      web3.utils.toWei("15", "ether"),
+      web3.utils.toWei("5", "ether")
+    );
   });
 
   it("Should  get Input Price With Fee", async () => {
@@ -97,21 +84,94 @@ contract("Pool", (accounts) => {
       tokenB.address,
       web3.utils.toWei("1", "ether")
     );
-    console.log(JSON.stringify(web3.utils.fromWei(price.inputAmount)) + "price token");
   });
 
-  it("Should give token A", async () => {
-    let tokenA = await PoolInstance.getTokenA();
-    //  console.log(tokenA + " token a");
+  it("Should give token A address", async () => {
+    let tokenAddress = await PoolInstance.getTokenA();
+    assert.equal(
+      tokenAddress,
+      tokenA.address,
+      `token A address need to be ${tokenA.address} `
+    );
   });
 
   it("Should give token B", async () => {
-    let tokenB = await PoolInstance.getTokenB();
-    // console.log(tokenB + " token b");
+    let tokenAddress = await PoolInstance.getTokenB();
+    assert.equal(
+      tokenAddress,
+      tokenB.address,
+      `token B address need to be ${tokenB.address} `
+    );
   });
-  it("Should give owner and balance  ", async () => {
-    // let balance = await PoolInstance.getOwnerAndBalance();
-    // console.log(JSON.stringify(balance) + "  balanceOwner");
+
+  it("Should Give Balance Token", async () => {
+    let balance = await PoolInstance.getBalanceToken(
+      tokenA.address,
+      contractAddress
+    );
+    console.log(web3.utils.fromWei(balance) + " tokenA");
   });
-  
+  it("Should give balance contract", async () => {
+    let balanceContract = await PoolInstance.balanceContract();
+    console.log(balanceContract + " BALANCE Contract");
+  });
+  it("Should add Liquidity to pool", async () => {
+    await PoolInstance.addLiquidity(
+      web3.utils.toWei("5", "ether"),
+      web3.utils.toWei("10", "ether")
+    );
+    let balanceTokenA = await PoolInstance.getBalanceToken(
+      tokenA.address,
+      contractAddress
+    );
+
+    let balanceTokenB = await PoolInstance.getBalanceToken(
+      tokenB.address,
+      contractAddress
+    );
+
+    assert.equal(
+      web3.utils.fromWei(balanceTokenA),
+      507.5075,
+      "token a need to be 507.5075"
+    );
+    assert.equal(
+      web3.utils.fromWei(balanceTokenB),
+      1005,
+      "token b need to be 1005"
+    );
+  });
+  it("Should return lp token by liquidity ", async () => {
+    let result = await PoolInstance.calculationLpToken(
+      web3.utils.toWei("40", "ether"),
+      web3.utils.toWei("80", "ether")
+    );
+    console.log(web3.utils.fromWei(result) + " result");
+  });
+
+  it("Should transfer token to user", async () => {
+    await PoolInstance.getBalanceToken(tokenA.address, accounts[1]);
+
+    await PoolInstance.transferToken(
+      tokenA.address,
+      accounts[1],
+      web3.utils.toWei("3", "ether")
+    );
+    let balanceTokenAfter = await PoolInstance.getBalanceToken(
+      tokenA.address,
+      accounts[1]
+    );
+    assert.equal(
+      web3.utils.fromWei(balanceTokenAfter),
+      3,
+      "result need to be 3"
+    );
+  });
+  it("Should swap token A to token B", async () => {
+    await PoolInstance.swap(
+      tokenA.address,
+      web3.utils.toWei("15", "ether"),
+      web3.utils.toWei("5", "ether")
+    );
+  });
 });

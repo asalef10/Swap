@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
-
 import "./Pool.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract PoolFactory {
     mapping(address => mapping(address => address)) public pools;
@@ -35,9 +35,7 @@ contract PoolFactory {
         external
         returns (address pool)
     {
-        (address token0, address token1) = tokenA < tokenB
-            ? (tokenA, tokenB)
-            : (tokenB, tokenA);
+        (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
 
         require(pools[token0][token1] == address(0), "POOL_EXISTS");
 
