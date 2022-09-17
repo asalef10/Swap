@@ -3,6 +3,8 @@ const PoolFactory = artifacts.require("PoolFactory");
 
 const ERC20 = artifacts.require("ERC20PresetFixedSupply");
 
+// contract address work -- 0xCE0CF163224055e7229308A5cB9C6fdaDb29eB99 --
+
 contract("Pool", (accounts) => {
   function fromWeiToNumber(number) {
     return parseFloat(web3.utils.fromWei(number, "ether")).toFixed(6) * 1;
@@ -15,9 +17,7 @@ contract("Pool", (accounts) => {
 
   const issueAmount = web3.utils.toWei("100000000000000", "ether");
 
-  let PoolInstance, PoolFactoryInstance;
-
-  let contractAddress;
+  let PoolInstance, PoolFactoryInstance, contractAddress;
 
   before(async () => {
     tokenA = await ERC20.new("tokenA", "A", issueAmount, accounts[0]);
@@ -115,6 +115,11 @@ contract("Pool", (accounts) => {
     let balanceContract = await PoolInstance.balanceContract();
     console.log(balanceContract + " BALANCE Contract");
   });
+  it("Should give total liquidity", async () => {
+    let totalLiquidity = await PoolInstance.totalLiquidity();
+    console.log("TOTAL Liquidity " + web3.utils.fromWei(totalLiquidity));
+    return totalLiquidity;
+  });
   it("Should add Liquidity to pool", async () => {
     await PoolInstance.addLiquidity(
       web3.utils.toWei("5", "ether"),
@@ -141,12 +146,12 @@ contract("Pool", (accounts) => {
       "token b need to be 1005"
     );
   });
-  it("Should return lp token by liquidity ", async () => {
+  it("Should return fees lp token by liquidity ", async () => {
     let result = await PoolInstance.calculationLpToken(
-      web3.utils.toWei("40", "ether"),
-      web3.utils.toWei("80", "ether")
+      web3.utils.toWei("250", "ether"),
+      web3.utils.toWei("1000", "ether")
     );
-    console.log(web3.utils.fromWei(result) + " result");
+    console.log(web3.utils.fromWei(result) + " result fees lp");
   });
 
   it("Should transfer token to user", async () => {
@@ -173,5 +178,8 @@ contract("Pool", (accounts) => {
       web3.utils.toWei("15", "ether"),
       web3.utils.toWei("5", "ether")
     );
+  });
+  it("Should create token ERC20", async () => {
+    await PoolInstance.createTokenERC20()
   });
 });

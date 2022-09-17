@@ -3,6 +3,7 @@
     "@openzeppelin/contracts": "^4.7.2"
   },
   "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.14",
     "web3": "^1.7.5"
   }
 }

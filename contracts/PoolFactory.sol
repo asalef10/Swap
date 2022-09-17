@@ -2,20 +2,24 @@
 
 pragma solidity ^0.8.0;
 import "./Pool.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract PoolFactory {
+    
+
+
     mapping(address => mapping(address => address)) public pools;
     address[] public allPools;
-
+    address internal addressFactoryERC20;
     address public immutable admin;
-
     modifier onlyAdmin() {
         require(msg.sender == admin, "Only admin");
         _;
     }
 
     constructor() {
+        addressFactoryERC20 = 0x01D99D24AE1b50abd967d25D9bFBD8fc809e7dE5;
         admin = msg.sender;
     }
 
@@ -31,6 +35,11 @@ contract PoolFactory {
         return pools[tokenA][tokenB];
     }
 
+function createTokenERC20() public  returns(address token) {
+   TokenFactory(addressFactoryERC20).createToken("a","b");
+
+}
+
     function createPool(address tokenA, address tokenB)
         external
         returns (address pool)
@@ -39,6 +48,7 @@ contract PoolFactory {
 
         require(pools[token0][token1] == address(0), "POOL_EXISTS");
 
+       
         pool = address(new Pool(tokenA, tokenB));
 
         pools[token0][token1] = pool;

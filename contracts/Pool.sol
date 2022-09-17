@@ -94,24 +94,25 @@ contract Pool is ERC20 {
         IERC20(outputToken).transfer(msg.sender, amount);
     }
     
-
-    function calculationLpToken(uint256 amountTokenA,uint256 amountTokenB)public view returns(uint256)  {
-        //  uint256 pullResult =  amountTokenA + amountTokenB
+    function totalLiquidity()public view returns (uint256 totalLiquidty){
          uint256 Token_A = IERC20(tokenA).balanceOf(address(this));
          uint256 Token_B = IERC20(tokenB).balanceOf(address(this));
          uint256 resultToken_A_B = Token_A + Token_B;
+         return resultToken_A_B;
+}
+     function calculationLpToken(uint256 amountTokenA,uint256 amountTokenB)public view returns(uint256 lpFees)  {
+         uint256 resultToken_A_B = totalLiquidity();
          uint256 resultLiquidity = amountTokenA + amountTokenB;
-         uint256 result = (resultLiquidity/1512) * 100;
-         return result;
+         uint256 doubleLiq = (resultLiquidity * 1000)/resultToken_A_B;
+         uint256 result = doubleLiq * 100;
+         return result/1000;
     }
 
     function addLiquidity(uint256 amountTokenA,uint256 amountTokenB)public {
         IERC20(tokenA).transferFrom(msg.sender, address(this), amountTokenA);
         IERC20(tokenB).transferFrom(msg.sender, address(this), amountTokenB);
         uint256 resultLP = calculationLpToken(amountTokenA,amountTokenB);
+        intUserLiquidity[msg.sender] += resultLP;
         IERC20(address(this)).transfer(msg.sender,resultLP);
-        intUserLiquidity[msg.sender] = amountTokenA;
-    }
-    
-  
+    } 
 }
