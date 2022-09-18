@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
-import "./Pool.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./~Pool.sol";
+import "c:/Users/Asalef alena/Desktop/swap/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "c:/Users/Asalef alena/Desktop/swap/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract PoolFactory {
     
