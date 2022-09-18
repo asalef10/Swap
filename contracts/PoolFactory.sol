@@ -2,8 +2,10 @@
 
 pragma solidity ^0.8.0;
 import "./Pool.sol";
+import "./interfaces/ITokenFactory.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
 
 contract PoolFactory {
     
@@ -36,7 +38,7 @@ contract PoolFactory {
     }
 
 function createTokenERC20() public  returns(address token) {
-   TokenFactory(addressFactoryERC20).createToken("a","b");
+   ITokenFactory(addressFactoryERC20).createToken("a","b");
 
 }
 
