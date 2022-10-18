@@ -94,12 +94,6 @@ contract Pool is ERC20 {
         IERC20(outputToken).transfer(msg.sender, amount);
     }
     
-//     function totalLiquidity()public view returns (uint256 totalLiquidty){
-//          uint256 Token_A = IERC20(tokenA).balanceOf(address(this));
-//          uint256 Token_B = IERC20(tokenB).balanceOf(address(this));
-//          uint256 resultToken_A_B = Token_A + Token_B;
-//          return resultToken_A_B;
-// 
 }
     function totalLiquidity()public view returns (uint256 totalLiquidty_A,uint256 totalLiquidty_B ){
          uint256 Token_A = IERC20(tokenA).balanceOf(address(this));
