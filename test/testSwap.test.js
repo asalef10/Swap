@@ -6,12 +6,8 @@ const ERC20 = artifacts.require("ERC20PresetFixedSupply");
 // contract address work -- 0xCE0CF163224055e7229308A5cB9C6fdaDb29eB99 --
 
 contract("Pool", (accounts) => {
-  function fromWeiToNumber(number) {
-    return parseFloat(web3.utils.fromWei(number, "ether")).toFixed(6) * 1;
-  }
-  const A_PRICE = 1;
-  const B_PRICE = 3;
-  const C_PRICE = 6;
+
+  
 
   let tokenA, tokenB, tokenC;
 
@@ -28,9 +24,7 @@ contract("Pool", (accounts) => {
 
     PoolFactoryInstance = await PoolFactory.deployed();
 
-    //create pool A/B with 10,000 A and equivalent B
-    let AInput = 10000 * A_PRICE;
-    let BInput = (B_PRICE / A_PRICE) * AInput;
+ 
 
     await PoolFactoryInstance.createPool(tokenA.address, tokenB.address);
 
@@ -45,27 +39,12 @@ contract("Pool", (accounts) => {
     await tokenB.approve(PoolInstance.address, issueAmount);
     await tokenC.approve(PoolInstance.address, issueAmount);
 
-    //create pool A/C
-    //create pool A/B with 10,000 A and equivalent C
+   
+     await PoolFactoryInstance.createPool(tokenA.address, tokenC.address);
 
-    let CInput = (C_PRICE / A_PRICE) * AInput;
-    await PoolFactoryInstance.createPool(tokenA.address, tokenC.address);
+  
 
-    //create pool B/C
-    //create pool B/C with 10,000 B and equivalent C
-    BInput = 20000 * B_PRICE;
-    CInput = (C_PRICE / B_PRICE) * BInput;
     await PoolFactoryInstance.createPool(tokenB.address, tokenC.address);
-
-    let acAddress = await PoolFactoryInstance.getPool(
-      tokenA.address,
-      tokenC.address
-    );
-
-    let bcAddress = await PoolFactoryInstance.getPool(
-      tokenB.address,
-      tokenC.address
-    );
 
     await tokenA.transfer(abAddress, web3.utils.toWei("500", "ether"));
     await tokenB.transfer(abAddress, web3.utils.toWei("1000", "ether"));
@@ -115,11 +94,6 @@ contract("Pool", (accounts) => {
     let balanceContract = await PoolInstance.balanceContract();
     console.log(balanceContract + " BALANCE Contract");
   });
-  it("Should give total liquidity", async () => {
-    let totalLiquidity = await PoolInstance.totalLiquidity();
-    console.log("TOTAL Liquidity " + web3.utils.fromWei(totalLiquidity));
-    return totalLiquidity;
-  });
   it("Should add Liquidity to pool", async () => {
     await PoolInstance.addLiquidity(
       web3.utils.toWei("5", "ether"),
@@ -148,10 +122,10 @@ contract("Pool", (accounts) => {
   });
   it("Should return fees lp token by liquidity ", async () => {
     let result = await PoolInstance.calculationLpToken(
-      web3.utils.toWei("250", "ether"),
-      web3.utils.toWei("1000", "ether")
+      web3.utils.toWei("1000", "ether"),
+      web3.utils.toWei("3000", "ether")
     );
-    console.log(web3.utils.fromWei(result) + " result fees lp");
+    console.log(result + " result fees lp");
   });
 
   it("Should transfer token to user", async () => {
@@ -179,7 +153,5 @@ contract("Pool", (accounts) => {
       web3.utils.toWei("5", "ether")
     );
   });
-  it("Should create token ERC20", async () => {
-    await PoolInstance.createTokenERC20()
-  });
+
 });

@@ -1,0 +1,326 @@
+{
+  "contractName": "ITokenFactory",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "tokenName",
+          "type": "string"
+        }
+      ],
+      "name": "getTokenAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "addressContract",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "a",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "b",
+          "type": "string"
+        }
+      ],
+      "name": "createToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getOwner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "addressOwner",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"a\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"b\",\"type\":\"string\"}],\"name\":\"createToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"addressOwner\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"tokenName\",\"type\":\"string\"}],\"name\":\"getTokenAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"addressContract\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/ITokenFactory.sol\":\"ITokenFactory\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/ITokenFactory.sol\":{\"keccak256\":\"0x75af47cd0e072d4c7e7701e28bb4356d662543e8cd63dd0188529d1dabd5bfe6\",\"urls\":[\"bzz-raw://74a20e7f5a6b9ae300fc696ec433621da1669a6c1d029cc59dfec14a6d192eb8\",\"dweb:/ipfs/QmNhLjXQVMn3qWeMFyrs5Z4yLMSjA6C9qj8Y7bKYz7ivxX\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "interface ITokenFactory {\r\n    function getTokenAddress(string memory tokenName) external view returns(address addressContract)  ;\r\n    function createToken(string memory a, string memory b) external ;\r\n    function getOwner() external view returns(address addressOwner);\r\n    \r\n}\r\n",
+  "sourcePath": "C:\\Users\\Asalef alena\\Desktop\\swap\\contracts\\interfaces\\ITokenFactory.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/interfaces/ITokenFactory.sol",
+    "exportedSymbols": {
+      "ITokenFactory": [
+        1400
+      ]
+    },
+    "id": 1401,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 1400,
+        "linearizedBaseContracts": [
+          1400
+        ],
+        "name": "ITokenFactory",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "c4091236",
+            "id": 1387,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getTokenAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1383,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1382,
+                  "mutability": "mutable",
+                  "name": "tokenName",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1387,
+                  "src": "56:23:8",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1381,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "56:6:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "55:25:8"
+            },
+            "returnParameters": {
+              "id": 1386,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1385,
+                  "mutability": "mutable",
+                  "name": "addressContract",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1387,
+                  "src": "103:23:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1384,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "103:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "102:25:8"
+            },
+            "scope": 1400,
+            "src": "31:99:8",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "2f2f2d56",
+            "id": 1394,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "createToken",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1392,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1389,
+                  "mutability": "mutable",
+                  "name": "a",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1394,
+                  "src": "157:15:8",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1388,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "157:6:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1391,
+                  "mutability": "mutable",
+                  "name": "b",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1394,
+                  "src": "174:15:8",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1390,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "174:6:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "156:34:8"
+            },
+            "returnParameters": {
+              "id": 1393,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "200:0:8"
+            },
+            "scope": 1400,
+            "src": "136:65:8",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "893d20e8",
+            "id": 1399,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getOwner",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1395,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "224:2:8"
+            },
+            "returnParameters": {
+              "id": 1398,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1397,
+                  "mutability": "mutable",
+                  "name": "addressOwner",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1399,
+                  "src": "249:20:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1396,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "249:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "248:22:8"
+            },
+            "scope": 1400,
+            "src": "207:64:8",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 1401,
+        "src": "0:280:8"
+      }
+    ],
+    "src": "0:282:8"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.8",
+  "updatedAt": "2022-09-18T21:08:09.558Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

@@ -35,8 +35,8 @@ contract PoolFactory {
         return pools[tokenA][tokenB];
     }
 
-function createTokenERC20() public  returns(address token) {
-   ITokenFactory(addressFactoryERC20).createToken("a","b");
+   function createTokenERC20() public  returns(address token) {
+      ITokenFactory(addressFactoryERC20).createToken("TOKEN_A","A");
 
 }
 
@@ -44,9 +44,7 @@ function createTokenERC20() public  returns(address token) {
         external
         returns (address pool)
     {
-    //    address tokenA =  createERC20Token("tokenA","A");
-    //    address tokenB =  createERC20Token("tokenB","B");
-
+   
         (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
 
         require(pools[token0][token1] == address(0), "POOL_EXISTS");

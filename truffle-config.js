@@ -42,13 +42,13 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    // development: {
-    //  host: "127.0.0.1",     // Localhost (default: none)
-    //  port: 7545,            // Standard Ethereum port (default: none)
-    //  network_id: "*",       // Any network (default: none)
-    // },
+  //   development: {
+  //    host: "127.0.0.1",     // Localhost (default: none)
+  //    port: 7545,            // Standard Ethereum port (default: none)
+  //    network_id: "*",       // Any network (default: none)
+  //   },
   //   testnet: {
-  //     provider: () => new HDWalletProvider('bd1d859f9c3369558e3b7ceea6f7f0bb8b94b83ab662560b143d229487783d26', `https://matic-mumbai.chainstacklabs.com/`),
+  //     provider: () => new HDWalletProvider('mnemonic', `https://matic-mumbai.chainstacklabs.com/`),
   //     network_id: 80001,
   //     confirmations: 0,
   //     timeoutBlocks: 10,
